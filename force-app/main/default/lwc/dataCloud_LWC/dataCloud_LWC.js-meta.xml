@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Data Cloud Lightning Web Component (LWC) - @CVER</masterLabel>
+    <description>This is a "Data Cloud" LWC demo component to recover Data Cloud data based on a SQL query</description>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="title" type="String" label="title" description="String or custom label" default="Unified Individual Information"></property>
+            <property name="displayStyle" type="String" datasource="Block,Table" default="Block"/>
+            <property name="sqlQuery" type="String" label="SQL Query" description="SQL Query"/> 
+            <property name="debug" type="Boolean" label="Allow console.log()" default="false"/>
+        </targetConfig>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="title" type="String" label="title" description="String or custom label" default="Unified Individual Information"></property>
+            <property name="displayStyle" type="String" datasource="Block,Table" default="Block"/>
+            <property name="sqlQuery" type="String" label="SQL Query" description="SQL Query"/>
+            <property name="debug" type="Boolean" label="Allow console.log()" default="false"/>
+            <property name="recordId" default="{!recordId}" type="String" label="Record ID" description="Automatically bind the page's record id to the component variable"/>
+            <property name="objectApiName" default="{!objectApiName}" type="String" label="Object Name" description="Automatically bind the page's object name to the component variable"/>  
+        </targetConfig>
+    </targetConfigs>  
+</LightningComponentBundle>
