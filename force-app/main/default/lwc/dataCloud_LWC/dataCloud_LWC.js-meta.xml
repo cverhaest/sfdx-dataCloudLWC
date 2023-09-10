@@ -12,13 +12,15 @@
         <targetConfig targets="lightning__RecordPage">
             <property name="title" type="String" label="title" description="String or custom label" default="Unified Individual Information"></property>
             <property name="displayStyle" type="String" datasource="Block,Table" default="Block"/>
-            <property name="sqlQuery" type="String" label="SQL Query" description="SQL Query"/> 
+            <property name="sqlQuery" type="String" label="SQL Query" description="SQL Query"/>
+            <property name="filterFieldName" type="String" label="Filter Field Name" description="Filter Field Name"/> 
             <property name="debug" type="Boolean" label="Allow console.log()" default="false"/>
         </targetConfig>
         <targetConfig targets="lightningCommunity__Default">
             <property name="title" type="String" label="title" description="String or custom label" default="Unified Individual Information"></property>
             <property name="displayStyle" type="String" datasource="Block,Table" default="Block"/>
             <property name="sqlQuery" type="String" label="SQL Query" description="SQL Query"/>
+            <property name="filterFieldName" type="String" label="Filter Field Name" description="Filter Field Name"/>
             <property name="debug" type="Boolean" label="Allow console.log()" default="false"/>
             <property name="recordId" default="{!recordId}" type="String" label="Record ID" description="Automatically bind the page's record id to the component variable"/>
             <property name="objectApiName" default="{!objectApiName}" type="String" label="Object Name" description="Automatically bind the page's object name to the component variable"/>  

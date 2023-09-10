@@ -8,6 +8,7 @@ export default class DataCloud_LWC extends LightningElement {
     @api title;
     @api displayStyle;
     @api sqlQuery;
+    @api filterFieldName;
     @api debug = false;
     bDisplayTable = false;
    
@@ -44,7 +45,8 @@ export default class DataCloud_LWC extends LightningElement {
         { 
             sRecordId : '$recordId',
             sObjectName : '$objectApiName',
-            sQuery : '$sqlQuery'
+            sQuery : '$sqlQuery',
+            sFilterFieldName : '$filterFieldName'
         }
     )
     wiredGetDataCloudDataFromSQLQueryResultFct(result) {

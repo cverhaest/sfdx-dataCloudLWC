@@ -1,14 +1,26 @@
 public with sharing class dataCloud_CTRL {
     @AuraEnabled(cacheable=true)
-    public static String getDataCloudDataFromSQLQuery(String sRecordId, String sObjectName, String sQuery) {
-        system.debug('### CVER - dataCloud_CTRL - getDataCloudDataFromSQLQuery - sQuery:' + sQuery);
-
-        // Get Current Record information
-        String sUnified_Individual_Id = [SELECT Id, Unified_Individual_Id__pc FROM Account WHERE Id = :sRecordId LIMIT 1].Unified_Individual_Id__pc;
-        system.debug('### CVER - dataCloud_CTRL - getDataCloudDataFromSQLQuery - sUnified_Individual_Id:' + sUnified_Individual_Id);
-
-        String sResponse = '';
+    public static String getDataCloudDataFromSQLQuery(String sRecordId, String sObjectName, String sQuery, String sFilterFieldName) {
+        system.debug('### CVER - dataCloud_CTRL - getDataCloudDataFromSQLQuery - sRecordId:' + sRecordId + '- sObjectName:' + sObjectName + ' - sQuery:' + sQuery + '- sFilterFieldName:' + sFilterFieldName);
         
+        String sResponse = '';
+        String sQueryCurrentRecord = '';
+        String sFilterFieldValue = '';
+
+        if(sFilterFieldName != null && sFilterFieldName != ''){
+            // Get Current Record information based on filterFieldName
+            sQueryCurrentRecord = 'SELECT Id, ' + sFilterFieldName + ' FROM Account WHERE Id = \'' + sRecordId +  '\' LIMIT 1';
+            system.debug('### CVER - dataCloud_CTRL - getDataCloudDataFromSQLQuery - sQueryCurrentRecord:' + sQueryCurrentRecord);
+
+            sObject oCurrentRecord = Database.query(sQueryCurrentRecord);
+            system.debug('### CVER - dataCloud_CTRL - getDataCloudDataFromSQLQuery - oCurrentRecord:' + oCurrentRecord);
+
+            if(oCurrentRecord != null){
+                sFilterFieldValue = (String) oCurrentRecord.get(sFilterFieldName);
+                system.debug('### CVER - dataCloud_CTRL - getDataCloudDataFromSQLQuery - sFilterFieldValue:' + sFilterFieldValue);
+            }
+        }
+
         if(sQuery != null && sQuery != ''){ 
             Http oHttp = new Http();
             HttpRequest oRequest = new HttpRequest();    
@@ -25,8 +37,8 @@ public with sharing class dataCloud_CTRL {
             oRequest.setMethod('POST');
             oRequest.setTimeout(120000);
             
-            if(sQuery.contains('###Unified_Individual_Id###')){
-                sQuery = sQuery.replace('###Unified_Individual_Id###', '\'' + sUnified_Individual_Id + '\'');
+            if(sQuery.contains('###FilterFieldValue###')){
+                sQuery = sQuery.replace('###FilterFieldValue###', '\'' + sFilterFieldValue + '\'');
             }
             String sqlQueryJSON = '{ "sql" : "' + sQuery + '"}';
 
