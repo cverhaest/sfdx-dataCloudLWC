@@ -9,8 +9,13 @@ export default class DataCloud_LWC extends LightningElement {
     @api displayStyle;
     @api sqlQuery;
     @api filterFieldName;
+    @api displayFieldLabels = false;
+    @api fieldLabelsToDisplay;
     @api debug = false;
     bDisplayTable = false;
+
+    // Expose a field to make it available in the template
+    @track fieldLabels = [];
    
     // Make a Component Aware of Its Record Context
     // https://developer.salesforce.com/docs/component-library/documentation/lwc/lwc.use_record_context
@@ -73,18 +78,44 @@ export default class DataCloud_LWC extends LightningElement {
             if(this.debug) console.log('### dataCloud_LWC - wiredGetDataCloudDataFromSQLQueryResultFct() - lDataTemp:' + JSON.stringify(lDataTemp));
             if(this.debug) console.log('### dataCloud_LWC - wiredGetDataCloudDataFromSQLQueryResultFct() - lDataTemp.length:' + lDataTemp.length);
 
+            // Field Labels Management
+            if(this.displayFieldLabels && this.fieldLabelsToDisplay != null){
+                //const fieldLabelsList = this.fieldLabelsToDisplay.replace(/\s+/g, '').split(',');
+                const fieldLabelsList = this.fieldLabelsToDisplay.split(',');
+                if(this.debug) console.log('### dataCloud_LWC - wiredGetDataCloudDataFromSQLQueryResultFct() - fieldLabelsList.length:' + fieldLabelsList.length);
+                if(this.debug) console.log('### dataCloud_LWC - wiredGetDataCloudDataFromSQLQueryResultFct() - fieldLabelsList:' + JSON.stringify(fieldLabelsList));
+            
+                for(var i=0; i<fieldLabelsList.length; i++){
+                    this.fieldLabels.push(fieldLabelsList[i]);
+                }
+                if(this.debug) console.log('### dataCloud_LWC - wiredGetDataCloudDataFromSQLQueryResultFct() - fieldLabels:' + JSON.stringify(this.fieldLabels));
+            }
+
             for (var property1 in lDataTemp) {
                 var val1 = lDataTemp[property1];
-                console.log('### dataCloud_LWC - wiredGetDataCloudDataFromSQLQueryResultFct() - property1: ' + property1 + ', val1: ' + val1);
+                if(this.debug) console.log('### dataCloud_LWC - wiredGetDataCloudDataFromSQLQueryResultFct() - property1: ' + property1 + ', val1: ' + val1);
 
                 var rows = [];
+                var j = 0;
 
                 for (var property2 in val1) {
                     var val2 = val1[property2];
-                    console.log('### dataCloud_LWC - wiredGetDataCloudDataFromSQLQueryResultFct() - property2: ' + property2 + ', val2: ' + val2);
+                    if(this.debug) console.log('### dataCloud_LWC - wiredGetDataCloudDataFromSQLQueryResultFct() - property2: ' + property2 + ', val2: ' + val2);
 
-                    var objTemp = {'name': property2,'value': val2};
+                    var name = '';
+
+                    if(this.fieldLabels[j] != null){
+                        name = this.fieldLabels[j];
+                    }
+                    else{
+                        name = property2;
+                    }
+                    if(this.debug) console.log('### dataCloud_LWC - wiredGetDataCloudDataFromSQLQueryResultFct() - name: ' + name);
+
+                    var objTemp = {'name': name,'value': val2};
                     rows.push(objTemp);
+
+                    j++;
                 }
                 this.lData.push(rows);    
             }
