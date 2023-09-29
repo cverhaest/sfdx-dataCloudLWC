@@ -6,6 +6,8 @@ export default class DataCloud_LWC extends LightningElement {
     // Public Properties / Public Reactive Properties
     // https://developer.salesforce.com/docs/component-library/documentation/lwc/lwc.reactivity_public
     @api title;
+    @api iconName;
+    @api variant;
     @api displayStyle;
     @api sqlQuery;
     @api filterFieldName;
@@ -16,6 +18,7 @@ export default class DataCloud_LWC extends LightningElement {
 
     // Expose a field to make it available in the template
     @track fieldLabels = [];
+    @track finalTitle;
    
     // Make a Component Aware of Its Record Context
     // https://developer.salesforce.com/docs/component-library/documentation/lwc/lwc.use_record_context
@@ -37,7 +40,7 @@ export default class DataCloud_LWC extends LightningElement {
     // https://developer.salesforce.com/docs/component-library/documentation/lwc/lwc.create_lists
     wiredDataCloudResult = [{}];
 
-    rowCount;
+    rowCount = 0;
     /*ssot__Salutation__c;
     ssot__FirstName__c;
     ssot__LastName__c;
@@ -58,6 +61,8 @@ export default class DataCloud_LWC extends LightningElement {
         if(this.debug) console.log('### dataCloud_LWC - wiredGetDataCloudDataFromSQLQueryResultFct() - START - sqlQuery:'+ this.sqlQuery);
         if(this.debug) console.log('### dataCloud_LWC - wiredGetDataCloudDataFromSQLQueryResultFct() - result:' + JSON.stringify(result));
 
+        this.lData = [];
+
         if(this.displayStyle === 'Table'){
             console.log('### dataCloud_LWC - wiredGetDataCloudDataFromSQLQueryResultFct() - Table display style');
             this.bDisplayTable = true;
@@ -74,6 +79,7 @@ export default class DataCloud_LWC extends LightningElement {
             this.rowCount = this.parsedValue.rowCount;
             if(this.debug) console.log('### dataCloud_LWC - wiredGetDataCloudDataFromSQLQueryResultFct() - this.rowCount:' + this.rowCount);
 
+            this.finalTitle = this.title + ' (' + this.rowCount + ')';
             var lDataTemp = this.parsedValue.data;
             if(this.debug) console.log('### dataCloud_LWC - wiredGetDataCloudDataFromSQLQueryResultFct() - lDataTemp:' + JSON.stringify(lDataTemp));
             if(this.debug) console.log('### dataCloud_LWC - wiredGetDataCloudDataFromSQLQueryResultFct() - lDataTemp.length:' + lDataTemp.length);
@@ -135,6 +141,15 @@ export default class DataCloud_LWC extends LightningElement {
         }
         if(this.debug) console.log('### dataCloud_LWC - wiredGetDataCloudDataFromSQLQueryResultFct() - END');
     }
+
+    connectedCallback() {
+        if(this.debug) console.log('### dataCloud_LWC - connectedCallback() - START');
+        
+        // Card title management
+        this.finalTitle = this.title;
+
+        if(this.debug) console.log('### dataCloud_LWC - connectedCallback() - END');
+    }   
 
     // Refresh the Cache
     // https://developer.salesforce.com/docs/component-library/documentation/lwc/lwc.apex

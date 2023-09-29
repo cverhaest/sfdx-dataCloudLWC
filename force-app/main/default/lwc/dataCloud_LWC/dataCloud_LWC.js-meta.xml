@@ -6,11 +6,14 @@
     <description>This is a "Data Cloud" LWC demo component to recover Data Cloud data based on a SQL query</description>
     <targets>
         <target>lightning__RecordPage</target>
+        <target>lightningCommunity__Page</target>
         <target>lightningCommunity__Default</target>
     </targets>
     <targetConfigs>
         <targetConfig targets="lightning__RecordPage">
-            <property name="title" type="String" label="title" description="String or custom label" default="Unified Individual Information"></property>
+            <property name="title" type="String" label="Card Title" description="Title of the Card" default="Unified Individual Information"></property>
+            <property name="iconName" type="String" label="Card SLDS Icon Name" description="Name of the SLDS Icon" default="standard:data_model"/>
+            <property name="variant" type="String" label="Card Variant" description="Variant" datasource="base,narrow" default="base"/>
             <property name="displayStyle" type="String" datasource="Block,Table" default="Block"/>
             <property name="sqlQuery" type="String" label="SQL Query" description="SQL Query"/>
             <property name="filterFieldName" type="String" label="Filter Field Name" description="Filter Field Name"/>
@@ -19,7 +22,9 @@
             <property name="debug" type="Boolean" label="Allow console.log()" default="false"/>
         </targetConfig>
         <targetConfig targets="lightningCommunity__Default">
-            <property name="title" type="String" label="title" description="String or custom label" default="Unified Individual Information"></property>
+            <property name="title" type="String" label="Card Title" description="Title of the Card" default="Unified Individual Information"></property>
+            <property name="iconName" type="String" label="Card SLDS Icon Name" description="Name of the SLDS Icon" default="standard:data_model"/>
+            <property name="variant" type="String" label="Card Variant" description="Variant" datasource="base,narrow" default="base"/>
             <property name="displayStyle" type="String" datasource="Block,Table" default="Block"/>
             <property name="sqlQuery" type="String" label="SQL Query" description="SQL Query"/>
             <property name="filterFieldName" type="String" label="Filter Field Name" description="Filter Field Name"/>
