@@ -1,0 +1,29 @@
+<template>
+    <div class="slds-card__body slds-card_boundary">
+    <lightning-card variant={variant} title={finalTitle} icon-name={iconName}>
+        <lightning-button-icon icon-name="utility:refresh" variant="border-filled" onclick={handleRefresh} alternative-text="Refresh" slot="actions"></lightning-button-icon>
+        <div class="slds-m-left_x-small slds-m-right_small slds-grid">
+            <template for:each={lData} for:item="oData">
+                <template for:each={oData} for:item="oRow">
+                    <div key={oData} class="slds-m-right_xxx-small slds-col slds-text-align_center slds-text-heading_large slds-theme_shade" ><span>{oRow.value}</span></div>
+                </template>
+            </template>
+        </div>
+        <div class="slds-m-left_x-small slds-m-right_small slds-grid">    
+            <template for:each={lData} for:item="oData">
+                <template for:each={oData} for:item="oRow">
+                    <div key={oData} class="slds-m-right_xxx-small slds-col slds-text-align_center slds-form-element__label"><span>{oRow.name}</span></div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>  
+    </div>
+
+    
+    <!-- DEBUG -->
+    <!-- <template for:each={lData} for:item="oData" >
+        <template for:each={oData} for:item="oRow" >
+            <p key={oRow.name}>{oRow.name} - {oRow.value}</p>
+        </template>
+    </template> -->
+</template>
