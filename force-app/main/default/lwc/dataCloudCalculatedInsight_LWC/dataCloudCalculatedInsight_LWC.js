@@ -22,6 +22,8 @@ export default class DataCloudCalculatedInsight_LWC extends LightningElement {
     // Expose a field to make it available in the template
     @track fieldLabels = [];
     @track finalTitle;
+    @track gridElementValueClass = 'slds-m-right_xxx-small slds-col slds-text-align_center slds-text-heading_large slds-theme_shade';
+    @track gridElementLabelClass = 'slds-m-right_xxx-small slds-col slds-text-align_center slds-form-element__label';
    
     // Make a Component Aware of Its Record Context
     // https://developer.salesforce.com/docs/component-library/documentation/lwc/lwc.use_record_context
@@ -97,6 +99,16 @@ export default class DataCloudCalculatedInsight_LWC extends LightningElement {
                     this.fieldLabels.push(fieldLabelsList[i]);
                 }
                 if(this.debug) console.log('### DataCloudCalculatedInsight_LWC - wiredGetDataCloudDataFromCalculatedInsightQueryFct() - fieldLabels:' + JSON.stringify(this.fieldLabels));
+            }
+
+            // Grid Element Class Management
+            if(this.measures != null){
+                const measuresList = this.measures.split(',');
+                if(this.debug) console.log('### DataCloudCalculatedInsight_LWC - wiredGetDataCloudDataFromCalculatedInsightQueryFct() - measuresList.length:' + measuresList.length);
+                
+                this.gridElementValueClass += ' slds-size_' + 12/measuresList.length + '-of-12';
+                this.gridElementLabelClass += ' slds-size_' + 12/measuresList.length + '-of-12';
+                if(this.debug) console.log('### DataCloudCalculatedInsight_LWC - wiredGetDataCloudDataFromCalculatedInsightQueryFct() - gridElementValueClass:' + this.gridElementValueClass);
             }
 
             for (var property1 in lDataTemp) {

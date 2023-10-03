@@ -5,14 +5,14 @@
         <div class="slds-m-left_x-small slds-m-right_small slds-grid">
             <template for:each={lData} for:item="oData">
                 <template for:each={oData} for:item="oRow">
-                    <div key={oData} class="slds-m-right_xxx-small slds-col slds-text-align_center slds-text-heading_large slds-theme_shade" ><span>{oRow.value}</span></div>
+                    <div key={oData} class={gridElementValueClass}><span>{oRow.value}</span></div>
                 </template>
             </template>
         </div>
         <div class="slds-m-left_x-small slds-m-right_small slds-grid">    
             <template for:each={lData} for:item="oData">
                 <template for:each={oData} for:item="oRow">
-                    <div key={oData} class="slds-m-right_xxx-small slds-col slds-text-align_center slds-form-element__label"><span>{oRow.name}</span></div>
+                    <div key={oData} class={gridElementLabelClass}><span>{oRow.name}</span></div>
                 </template>
             </template>
         </div>
