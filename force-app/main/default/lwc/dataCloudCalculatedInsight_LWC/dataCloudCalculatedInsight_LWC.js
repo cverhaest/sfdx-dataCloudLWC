@@ -10,6 +10,7 @@ export default class DataCloudCalculatedInsight_LWC extends LightningElement {
     @api variant;
     @api calculatedInsightname;
     @api measures = null;
+    @api measuresSymbolsToDisplay = null;
     @api dimensions = null;
     @api filters = null;
     @api filterFieldName = null;
@@ -21,6 +22,8 @@ export default class DataCloudCalculatedInsight_LWC extends LightningElement {
 
     // Expose a field to make it available in the template
     @track fieldLabels = [];
+    @track measuresSymbols = [];
+    @track dimensionsTable = [];
     @track finalTitle;
     @track gridElementValueClass = 'slds-m-right_xxx-small slds-col slds-text-align_center slds-text-heading_large slds-theme_shade';
     @track gridElementLabelClass = 'slds-m-right_xxx-small slds-col slds-text-align_center slds-form-element__label';
@@ -88,6 +91,39 @@ export default class DataCloudCalculatedInsight_LWC extends LightningElement {
 
             this.finalTitle = this.title + ' (' + this.rowCount + ')';
 
+            // Dimensions Management
+            if(this.dimensions != null){
+                const dimensionsList = this.dimensions.split(',');
+                if(this.debug) console.log('### DataCloudCalculatedInsight_LWC - wiredGetDataCloudDataFromCalculatedInsightQueryFct() - dimensionsList.length:' + dimensionsList.length);
+                if(this.debug) console.log('### DataCloudCalculatedInsight_LWC - wiredGetDataCloudDataFromCalculatedInsightQueryFct() - dimensionsList:' + JSON.stringify(dimensionsList));
+            
+                for(var i=0; i<dimensionsList.length; i++){
+                    this.dimensionsTable.push(dimensionsList[i]);
+                }
+                if(this.debug) console.log('### DataCloudCalculatedInsight_LWC - wiredGetDataCloudDataFromCalculatedInsightQueryFct() - dimensionsTable:' + JSON.stringify(this.dimensionsTable));
+            }
+
+            // Grid Element Class Management
+            if(this.measures != null){
+                const measuresList = this.measures.split(',');
+                if(this.debug) console.log('### DataCloudCalculatedInsight_LWC - wiredGetDataCloudDataFromCalculatedInsightQueryFct() - measuresList.length:' + measuresList.length);
+                
+                this.gridElementValueClass += ' slds-size_' + 12/measuresList.length + '-of-12';
+                this.gridElementLabelClass += ' slds-size_' + 12/measuresList.length + '-of-12';
+                if(this.debug) console.log('### DataCloudCalculatedInsight_LWC - wiredGetDataCloudDataFromCalculatedInsightQueryFct() - gridElementValueClass:' + this.gridElementValueClass);
+            }
+
+            // Measures Symbols & Grid Element Class Management
+            if(this.measuresSymbolsToDisplay != null){
+                const measuresSymbolsList = this.measuresSymbolsToDisplay.split(',');
+                if(this.debug) console.log('### DataCloudCalculatedInsight_LWC - wiredGetDataCloudDataFromCalculatedInsightQueryFct() - measuresSymbolsList.length:' + measuresSymbolsList.length);
+                if(this.debug) console.log('### DataCloudCalculatedInsight_LWC - wiredGetDataCloudDataFromCalculatedInsightQueryFct() - measuresSymbolsList:' + JSON.stringify(measuresSymbolsList));
+            
+                for(var i=0; i<measuresSymbolsList.length; i++){
+                    this.measuresSymbols.push(measuresSymbolsList[i]);
+                }
+            }
+
             // Field Labels Management
             if(this.displayFieldLabels && this.fieldLabelsToDisplay != null){
                 //const fieldLabelsList = this.fieldLabelsToDisplay.replace(/\s+/g, '').split(',');
@@ -101,42 +137,41 @@ export default class DataCloudCalculatedInsight_LWC extends LightningElement {
                 if(this.debug) console.log('### DataCloudCalculatedInsight_LWC - wiredGetDataCloudDataFromCalculatedInsightQueryFct() - fieldLabels:' + JSON.stringify(this.fieldLabels));
             }
 
-            // Grid Element Class Management
-            if(this.measures != null){
-                const measuresList = this.measures.split(',');
-                if(this.debug) console.log('### DataCloudCalculatedInsight_LWC - wiredGetDataCloudDataFromCalculatedInsightQueryFct() - measuresList.length:' + measuresList.length);
-                
-                this.gridElementValueClass += ' slds-size_' + 12/measuresList.length + '-of-12';
-                this.gridElementLabelClass += ' slds-size_' + 12/measuresList.length + '-of-12';
-                if(this.debug) console.log('### DataCloudCalculatedInsight_LWC - wiredGetDataCloudDataFromCalculatedInsightQueryFct() - gridElementValueClass:' + this.gridElementValueClass);
-            }
-
             for (var property1 in lDataTemp) {
                 var val1 = lDataTemp[property1];
                 if(this.debug) console.log('### DataCloudCalculatedInsight_LWC - wiredGetDataCloudDataFromCalculatedInsightQueryFct() - property1: ' + property1 + ', val1: ' + val1);
 
                 var rows = [];
                 var j = 0;
+                var k = 0;
 
                 for (var property2 in val1) {
-                    var val2 = val1[property2];
-                    if(this.debug) console.log('### DataCloudCalculatedInsight_LWC - wiredGetDataCloudDataFromCalculatedInsightQueryFct() - property2: ' + property2 + ', val2: ' + val2);
-
-                    var name = '';
-
-                    if(this.fieldLabels[j] != null){
-                        name = this.fieldLabels[j];
+                    if(this.dimensionsTable.includes(property2) && this.rowCount == 1){
+                        // Calculated Insight Query API response also contains dimensions information
                     }
                     else{
-                        name = property2;
-                    }
-                    if(this.debug) console.log('### DataCloudCalculatedInsight_LWC - wiredGetDataCloudDataFromCalculatedInsightQueryFct() - name: ' + name + ' - this.dimensions:' + this.dimensions);
+                        var val2 = val1[property2];
 
-                    var objTemp = {'name': name,'value': val2};
-                    if(property2 == this.dimensions && this.rowCount == 1){
-                    }
-                    else
+                        if(this.measuresSymbols[k] != null){
+                            val2 += this.measuresSymbols[k];
+                        }
+                        if(this.debug) console.log('### DataCloudCalculatedInsight_LWC - wiredGetDataCloudDataFromCalculatedInsightQueryFct() - property2: ' + property2 + ', val2: ' + val2);
+
+                        var name = '';
+
+                        if(this.fieldLabels[k] != null){
+                            name = this.fieldLabels[k];
+                        }
+                        else{
+                            name = property2;
+                        }
+                        if(this.debug) console.log('### DataCloudCalculatedInsight_LWC - wiredGetDataCloudDataFromCalculatedInsightQueryFct() - name: ' + name + ' - this.dimensions:' + this.dimensions);
+
+                        var objTemp = {'name': name,'value': val2};
                         rows.push(objTemp);
+
+                        k++;
+                    } 
 
                     j++;
                 }
