@@ -18,6 +18,7 @@ export default class DataCloudCalculatedInsight_LWC extends LightningElement {
     @api orderby = null;
     @api displayFieldLabels = false;
     @api fieldLabelsToDisplay = null;
+    @api displayRowCount = false;
     @api debug = false;
 
     // Expose a field to make it available in the template
@@ -89,7 +90,8 @@ export default class DataCloudCalculatedInsight_LWC extends LightningElement {
             this.rowCount = lDataTemp.length;
             if(this.debug) console.log('### DataCloudCalculatedInsight_LWC - wiredGetDataCloudDataFromCalculatedInsightQueryFct() - this.rowCount:' + this.rowCount);
 
-            this.finalTitle = this.title + ' (' + this.rowCount + ')';
+            this.finalTitle = this.title;
+            if(this.displayRowCount) this.finalTitle += ' (' + this.rowCount + ')';
 
             // Dimensions Management
             if(this.dimensions != null){

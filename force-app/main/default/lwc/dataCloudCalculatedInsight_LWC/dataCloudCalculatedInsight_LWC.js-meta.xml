@@ -24,6 +24,7 @@
             <property name="orderby" type="String" label="Order By" description="Sort order for the result set" default="issue_count__c desc"/>
             <property name="displayFieldLabels" type="Boolean" label="Display Field Measure Labels" default="false"/>
             <property name="fieldLabelsToDisplay" type="String" label="Field Measure Labels" description="Field Measure Labels" default="Issue Count"/>
+            <property name="displayRowCount" type="Boolean" label="Display Row Count" default="false"/>
             <property name="debug" type="Boolean" label="Allow console.log()" default="false"/>
         </targetConfig>
         <targetConfig targets="lightningCommunity__Default">
@@ -40,6 +41,7 @@
             <property name="orderby" type="String" label="Order By" description="Sort order for the result set" default="issue_count__c desc"/>
             <property name="displayFieldLabels" type="Boolean" label="Display Field Measure Labels" default="false"/>
             <property name="fieldLabelsToDisplay" type="String" label="Field Measure Labels" description="Field Measure Labels" default="Issue Count"/>
+            <property name="displayRowCount" type="Boolean" label="Display Row Count" default="false"/>
             <property name="debug" type="Boolean" label="Allow console.log()" default="false"/>
             <property name="recordId" default="{!recordId}" type="String" label="Record ID" description="Automatically bind the page's record id to the component variable"/>
             <property name="objectApiName" default="{!objectApiName}" type="String" label="Object Name" description="Automatically bind the page's object name to the component variable"/>  
