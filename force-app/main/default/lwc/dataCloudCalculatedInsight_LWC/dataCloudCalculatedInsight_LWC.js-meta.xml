@@ -16,14 +16,14 @@
             <property name="variant" type="String" label="Card Variant" description="Variant" datasource="base,narrow" default="base"/>
             <property name="calculatedInsightname" type="String" label="Calculated Insight name" description="API name of a Calculated Insight" default="Issues_Per_Unified_Indiv_last_7_days__cio"/>
             <property name="measures" type="String" label="Measures" description="API name of the measures" default="issue_count__c"/>
-            <property name="measuresSymbolsToDisplay" type="String" label="Measures Symbols" description="Measures symbols" default=",€"/>
+            <property name="measuresSymbolsToDisplay" type="String" label="Measures Symbols" description="Measures symbols" default="#"/>
             <property name="dimensions" type="String" label="Dimension" description="API name of the dimension" default="unified_individual_id__c"/>
             <property name="filters" type="String" label="Filters" description="Filters" default="[unified_individual_id__c=###FilterFieldValue###]"/>
             <property name="filterFieldName" type="String" label="Filter Field Name" description="Filter Field Name" default="Unified_Individual_Id__pc"/>
             <property name="batchSize" type="Integer" label="Batch Size" description="Number of items to return" default="1"/>
             <property name="orderby" type="String" label="Order By" description="Sort order for the result set" default="issue_count__c desc"/>
             <property name="displayFieldLabels" type="Boolean" label="Display Field Measure Labels" default="false"/>
-            <property name="fieldLabelsToDisplay" type="String" label="Field Measure Labels" description="Field Measure Labels" default="Unified Individual Id,Issue Count"/>
+            <property name="fieldLabelsToDisplay" type="String" label="Field Measure Labels" description="Field Measure Labels" default="Issue Count"/>
             <property name="debug" type="Boolean" label="Allow console.log()" default="false"/>
         </targetConfig>
         <targetConfig targets="lightningCommunity__Default">
@@ -32,14 +32,14 @@
             <property name="variant" type="String" label="Card Variant" description="Variant" datasource="base,narrow" default="base"/>
             <property name="calculatedInsightname" type="String" label="Calculated Insight name" description="API name of a Calculated Insight" default="Issues_Per_Unified_Indiv_last_7_days__cio"/>
             <property name="measures" type="String" label="Measures" description="API name of the measures" default="issue_count__c"/>
-            <property name="measuresSymbolsToDisplay" type="String" label="Measures Symbols" description="Measures symbols" default=",€"/>
+            <property name="measuresSymbolsToDisplay" type="String" label="Measures Symbols" description="Measures symbols" default="#"/>
             <property name="dimensions" type="String" label="Dimension" description="API name of the dimension" default="unified_individual_id__c"/>
             <property name="filters" type="String" label="Filters" description="Filters" default="[unified_individual_id__c=###FilterFieldValue###]"/>
             <property name="filterFieldName" type="String" label="Filter Field Name" description="Filter Field Name" default="Unified_Individual_Id__pc"/>
             <property name="batchSize" type="Integer" label="Batch Size" description="Number of items to return" default="1"/>
             <property name="orderby" type="String" label="Order By" description="Sort order for the result set" default="issue_count__c desc"/>
             <property name="displayFieldLabels" type="Boolean" label="Display Field Measure Labels" default="false"/>
-            <property name="fieldLabelsToDisplay" type="String" label="Field Measure Labels" description="Field Measure Labels" default="Unified Individual Id,Issue Count"/>
+            <property name="fieldLabelsToDisplay" type="String" label="Field Measure Labels" description="Field Measure Labels" default="Issue Count"/>
             <property name="debug" type="Boolean" label="Allow console.log()" default="false"/>
             <property name="recordId" default="{!recordId}" type="String" label="Record ID" description="Automatically bind the page's record id to the component variable"/>
             <property name="objectApiName" default="{!objectApiName}" type="String" label="Object Name" description="Automatically bind the page's object name to the component variable"/>  
