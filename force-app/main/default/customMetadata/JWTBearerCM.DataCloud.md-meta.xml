@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>DataCloud</label>
+    <protected>false</protected>
+    <values>
+        <field>Cert_Name__c</field>
+        <value xsi:type="xsd:string">JWTBearerCerts</value>
+    </values>
+    <values>
+        <field>Client_Id__c</field>
+        <value xsi:type="xsd:string">3MVG9t0sl2P.pBypq7yBumI7wVcBqaZJ9Rol6Jy6M41939yDmg0yht5PFq1VpvhCiXSBkMHrnb0JMWch7GLS0</value>
+    </values>
+    <values>
+        <field>Default_User__c</field>
+        <value xsi:type="xsd:string">cverhaest@datacloud.demo</value>
+    </values>
+    <values>
+        <field>Login_Url__c</field>
+        <value xsi:type="xsd:string">https://login.salesforce.com</value>
+    </values>
+</CustomMetadata>
